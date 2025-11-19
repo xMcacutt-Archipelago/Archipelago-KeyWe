@@ -37,7 +37,6 @@ class KeyWeWorld(World):
     topology_present = True
     item_name_to_id = {name: item.code for name, item in keywe_item_table.items()}
     location_name_to_id ={name: loc_data.code for name, loc_data in location_table.items()}
-    print(location_name_to_id)
     trap_weights = {}
     web = KeyWeWeb()
     # ut_can_gen_without_yaml = True
@@ -56,7 +55,7 @@ class KeyWeWorld(World):
         visualize_regions(self.get_region("Menu"), f"{self.player_name}_world.puml",
                           show_entrance_names=True, regions_to_highlight=state.reachable_regions[self.player])
         return {
-            "ModVersion": "1.0.0",
+            "ModVersion": "1.0.1",
             "TournamentIncluded": self.options.include_tournament.value,
             "OvertimeIncluded": self.options.include_overtime.value,
             "RequiredLevelCompletions": self.options.required_level_completions.value,
