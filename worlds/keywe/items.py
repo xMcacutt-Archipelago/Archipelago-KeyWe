@@ -86,58 +86,98 @@ class ItemData:
         self.code = code
         self.classification = classification
 
-
-keywe_item_table: Dict[str, ItemData] = {
-    # Level Unlocks
+keywe_summer_week_unlocks = {
     f"{SUMMER_WEEK_1} Unlock": ItemData(0x1, ItemClassification.progression),
     f"{SUMMER_WEEK_2} Unlock": ItemData(0x2, ItemClassification.progression),
     f"{SUMMER_WEEK_3} Unlock": ItemData(0x3, ItemClassification.progression),
-    f"{FALL_WEEK_1} Unlock":   ItemData(0x4, ItemClassification.progression),
-    f"{FALL_WEEK_2} Unlock":   ItemData(0x5, ItemClassification.progression),
-    f"{FALL_WEEK_3} Unlock":   ItemData(0x6, ItemClassification.progression),
+}
+
+keywe_fall_week_unlocks = {
+    f"{FALL_WEEK_1} Unlock": ItemData(0x4, ItemClassification.progression),
+    f"{FALL_WEEK_2} Unlock": ItemData(0x5, ItemClassification.progression),
+    f"{FALL_WEEK_3} Unlock": ItemData(0x6, ItemClassification.progression),
+}
+
+keywe_winter_week_unlocks = {
     f"{WINTER_WEEK_1} Unlock": ItemData(0x7, ItemClassification.progression),
     f"{WINTER_WEEK_2} Unlock": ItemData(0x8, ItemClassification.progression),
     f"{WINTER_WEEK_3} Unlock": ItemData(0x9, ItemClassification.progression),
-    f"{OT_SUMMER} Unlock":     ItemData(0xA, ItemClassification.progression),
-    f"{OT_FALL} Unlock":       ItemData(0xB, ItemClassification.progression),
-    f"{OT_WINTER} Unlock":     ItemData(0xC, ItemClassification.progression),
-    f"{TPT} Unlock":           ItemData(0xD, ItemClassification.progression),
-
-    # Cosmetics
-    "Random Facewear":  ItemData(0x100, ItemClassification.filler),
-    "Random Hat":       ItemData(0x101, ItemClassification.filler),
-    "Random Skin":      ItemData(0x102, ItemClassification.filler),
-    "Random Backwear":  ItemData(0x103, ItemClassification.filler),
-    "Random Hairstyle": ItemData(0x104, ItemClassification.filler),
-    "Random Footwear":  ItemData(0x105, ItemClassification.filler),
-    "Random Arms":      ItemData(0x106, ItemClassification.filler), # Required TPT DLC and Include Tournament
-
-    "Dash+":            ItemData(0x200, ItemClassification.useful),
-    "Movement+":        ItemData(0x201, ItemClassification.useful),
-    "Swim+":            ItemData(0x202, ItemClassification.useful),
-    "Jump+":            ItemData(0x203, ItemClassification.useful),
-    "Respawn+":         ItemData(0x204, ItemClassification.useful),
-    "Chirp+":           ItemData(0x205, ItemClassification.useful),
-    "Peck+":            ItemData(0x206, ItemClassification.useful),
-
-    # Hidden Collectibles (for mcguffin hunt)
-    SECRET_SPICE_SHAKER:    ItemData(0x300, ItemClassification.progression),
-    GLIMMERING_SHELL:       ItemData(0x301, ItemClassification.progression),
-    EMPTY_CHRYSALIS:        ItemData(0x302, ItemClassification.progression),
-    TEMPERED_LENS:          ItemData(0x303, ItemClassification.progression),
-    WAYFARERS_COMPASS:      ItemData(0x304, ItemClassification.progression),
-    PRICKLY_SEED_POD:       ItemData(0x305, ItemClassification.progression),
-    ANCIENT_TOOTH:          ItemData(0x306, ItemClassification.progression),
-    COSMIC_FRIENDSHIP_ROCK: ItemData(0x307, ItemClassification.progression),
-    CHARGED_FEATHER:        ItemData(0x308, ItemClassification.progression),
-    SALTY_SCALE:            ItemData(0x309, ItemClassification.progression),
-    GLOWING_WISHBONE:       ItemData(0x30A, ItemClassification.progression),
-    Z39_SOARING_AUK:        ItemData(0x30B, ItemClassification.progression),
-    PAPA_MOON_FIGURINE:     ItemData(0x30C, ItemClassification.progression),
-    MOUNTAINEERS_PITON:     ItemData(0x30D, ItemClassification.progression),
-    LOST_LETTER:            ItemData(0x30E, ItemClassification.progression),
 }
 
+keywe_overtime_unlocks = {
+    f"{OT_SUMMER} Unlock": ItemData(0xA, ItemClassification.progression),
+    f"{OT_FALL} Unlock": ItemData(0xB, ItemClassification.progression),
+    f"{OT_WINTER} Unlock": ItemData(0xC, ItemClassification.progression),
+}
+
+keywe_telepost_unlocks = {
+    f"{TPT} Unlock": ItemData(0xD, ItemClassification.progression),
+}
+
+keywe_cosmetic_items = {
+    "Random Facewear": ItemData(0x100, ItemClassification.filler),
+    "Random Hat": ItemData(0x101, ItemClassification.filler),
+    "Random Skin": ItemData(0x102, ItemClassification.filler),
+    "Random Backwear": ItemData(0x103, ItemClassification.filler),
+    "Random Hairstyle": ItemData(0x104, ItemClassification.filler),
+    "Random Footwear": ItemData(0x105, ItemClassification.filler),
+    "Random Arms": ItemData(0x106, ItemClassification.filler),  # Required TPT DLC and Include Tournament
+}
+
+keywe_ability_items = {
+    "Dash+": ItemData(0x200, ItemClassification.useful),
+    "Movement+": ItemData(0x201, ItemClassification.useful),
+    "Swim+": ItemData(0x202, ItemClassification.useful),
+    "Jump+": ItemData(0x203, ItemClassification.useful),
+    "Respawn+": ItemData(0x204, ItemClassification.useful),
+    "Chirp+": ItemData(0x205, ItemClassification.useful),
+    "Peck+": ItemData(0x206, ItemClassification.useful),
+}
+
+keywe_collectible_items = {
+    SECRET_SPICE_SHAKER: ItemData(0x300, ItemClassification.progression),
+    GLIMMERING_SHELL: ItemData(0x301, ItemClassification.progression),
+    EMPTY_CHRYSALIS: ItemData(0x302, ItemClassification.progression),
+    TEMPERED_LENS: ItemData(0x303, ItemClassification.progression),
+    WAYFARERS_COMPASS: ItemData(0x304, ItemClassification.progression),
+    PRICKLY_SEED_POD: ItemData(0x305, ItemClassification.progression),
+    ANCIENT_TOOTH: ItemData(0x306, ItemClassification.progression),
+    COSMIC_FRIENDSHIP_ROCK: ItemData(0x307, ItemClassification.progression),
+    CHARGED_FEATHER: ItemData(0x308, ItemClassification.progression),
+    SALTY_SCALE: ItemData(0x309, ItemClassification.progression),
+    GLOWING_WISHBONE: ItemData(0x30A, ItemClassification.progression),
+    Z39_SOARING_AUK: ItemData(0x30B, ItemClassification.progression),
+    PAPA_MOON_FIGURINE: ItemData(0x30C, ItemClassification.progression),
+    MOUNTAINEERS_PITON: ItemData(0x30D, ItemClassification.progression),
+    LOST_LETTER: ItemData(0x30E, ItemClassification.progression),
+}
+
+keywe_item_table: Dict[str, ItemData] = {
+    **keywe_summer_week_unlocks,
+    **keywe_fall_week_unlocks,
+    **keywe_winter_week_unlocks,
+    **keywe_ability_items,
+    **keywe_collectible_items,
+    **keywe_cosmetic_items,
+    **keywe_overtime_unlocks,
+    **keywe_telepost_unlocks
+}
+
+keywe_item_groups = {
+    "Weeks - Summer": set(keywe_summer_week_unlocks.keys()),
+    "Weeks - Fall": set(keywe_fall_week_unlocks.keys()),
+    "Weeks - Winter": set(keywe_winter_week_unlocks.keys()),
+    "Overtime": set(keywe_overtime_unlocks.keys()),
+    "Tournament": set(keywe_telepost_unlocks.keys()),
+    "Cosmetics": set(keywe_cosmetic_items.keys()),
+    "Collectibles": set(keywe_collectible_items.keys()),
+    "Upgrades": set(keywe_ability_items.keys()),
+    "Weeks": (
+        set(keywe_summer_week_unlocks.keys())
+        | set(keywe_fall_week_unlocks.keys())
+        | set(keywe_winter_week_unlocks.keys())
+    )
+}
 
 junk_weights = {
     "Random Facewear": 14,

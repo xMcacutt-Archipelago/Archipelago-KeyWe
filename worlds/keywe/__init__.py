@@ -4,11 +4,13 @@ from BaseClasses import Item, MultiWorld, Tutorial, ItemClassification, Region, 
 from Options import OptionError, PerGameCommonOptions
 from worlds.AutoWorld import WebWorld, World
 
-from .items import KeyWeItem, keywe_item_table, create_items, ItemData
-from .locations import KeyWeLocation, generate_location_table, location_table, create_locations, LocType
+from .items import KeyWeItem, keywe_item_table, create_items, ItemData, keywe_item_groups
+from .locations import KeyWeLocation, generate_location_table, location_table, create_locations, LocType, \
+    keywe_location_groups
 from .options import KeyWeOptions, keywe_options
 from .regions import create_regions, connect_regions, connect_all_regions
 from .rules import set_rules, create_events
+
 
 class KeyWeWeb(WebWorld):
     theme = "partyTime"
@@ -37,9 +39,12 @@ class KeyWeWorld(World):
     topology_present = True
     item_name_to_id = {name: item.code for name, item in keywe_item_table.items()}
     location_name_to_id ={name: loc_data.code for name, loc_data in location_table.items()}
+    item_name_groups = keywe_item_groups
+    location_name_groups = keywe_location_groups
     trap_weights = {}
     web = KeyWeWeb()
     # ut_can_gen_without_yaml = True
+
 
     def __init__(self, multiworld: MultiWorld, player: int):
         self.active_shop_tabs = []
@@ -55,7 +60,7 @@ class KeyWeWorld(World):
         visualize_regions(self.get_region("Menu"), f"{self.player_name}_world.puml",
                           show_entrance_names=True, regions_to_highlight=state.reachable_regions[self.player])
         return {
-            "ModVersion": "1.0.1",
+            "ModVersion": "1.0.4",
             "TournamentIncluded": self.options.include_tournament.value,
             "OvertimeIncluded": self.options.include_overtime.value,
             "RequiredLevelCompletions": self.options.required_level_completions.value,
@@ -86,8 +91,10 @@ class KeyWeWorld(World):
         item_info = keywe_item_table[name]
         return KeyWeItem(name, item_info.classification, item_info.code, self.player)
 
+
     def create_items(self):
         create_items(self)
+
 
     def create_event(self, region_name: str, event_loc_name: str, event_item_name: str) -> None:
         region: Region = self.multiworld.get_region(region_name, self.player)
@@ -95,14 +102,17 @@ class KeyWeWorld(World):
         loc.place_locked_item(KeyWeItem(event_item_name, ItemClassification.progression, None, self.player))
         region.locations.append(loc)
 
+
     def create_regions(self):
         create_regions(self)
         create_locations(self)
         create_events(self)
         connect_all_regions(self)
 
+
     def set_rules(self):
         set_rules(self)
+
 
     def extend_hint_information(self, hint_data: Dict[int, Dict[int, str]]):
         new_hint_data = {}
@@ -116,6 +126,7 @@ class KeyWeWorld(World):
             if data.loc_type is LocType.COMPLETION or data.loc_type is LocType.OBJECTIVE:
                 new_hint_data[location.address] = location.parent_region.entrances[0].parent_region.name
         hint_data[self.player] = new_hint_data
+
 
     # def handle_ut_yamless(self, slot_data: Optional[Dict[str, Any]]) -> Optional[Dict[str, Any]]:
     #

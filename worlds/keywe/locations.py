@@ -20,6 +20,7 @@ class LocData:
         self.region = region
         self.loc_type = loc_type
 
+
 class LocType(Enum):
     COMPLETION    = 1
     OBJECTIVE     = 2
@@ -111,4 +112,82 @@ def generate_location_table() -> dict[str, LocData]:
     return loc_dict
 
 location_table: dict[str, LocData] = generate_location_table()
+
+def generate_location_groups() -> dict[str, set[str]]:
+    location_groups: dict[str, set[str]] = {}
+
+    def add_group(group: str) -> set[str]:
+        return location_groups.setdefault(group, set())
+
+    # Story levels by week and season
+    week_to_levels: dict[str, set[str]] = {}
+    season_to_levels: dict[str, set[str]] = {}
+
+    for week, level, _ in iter_levels():
+        week_to_levels.setdefault(week, set()).add(level)
+        season = week.split(" - ")[0]
+        season_to_levels.setdefault(season, set()).add(level)
+
+    # Per-level groups
+    for loc_name, loc_data in location_table.items():
+        add_group(loc_data.region).add(loc_name)
+
+    # Per-week groups
+    for week, levels_in_week in week_to_levels.items():
+        group = add_group(week)
+        for loc_name, loc_data in location_table.items():
+            if loc_data.region in levels_in_week:
+                group.add(loc_name)
+
+    # Per-season groups
+    for season, levels_in_season in season_to_levels.items():
+        group = add_group(season)
+        for loc_name, loc_data in location_table.items():
+            if loc_data.region in levels_in_season:
+                group.add(loc_name)
+
+    overtime_all = add_group("Overtime")
+
+    for ot_season, level_dict in overtime_levels.items():
+        season_group = add_group(ot_season)
+
+        for level in level_dict.keys():
+            for loc_name, loc_data in location_table.items():
+                if loc_data.region == level:
+                    season_group.add(loc_name)
+                    overtime_all.add(loc_name)
+
+    tournament_all = add_group("Tournament")
+
+    for level in tournament_levels:
+        level_group = add_group(level)
+
+        for loc_name, loc_data in location_table.items():
+            if loc_data.region == level:
+                level_group.add(loc_name)
+                tournament_all.add(loc_name)
+
+    collectibles_group = add_group("Hidden Collectibles")
+
+    for loc_name, loc_data in location_table.items():
+        if loc_data.loc_type == LocType.COLLECTIBLE:
+            collectibles_group.add(loc_name)
+
+    return location_groups
+
+keywe_location_groups = generate_location_groups()
+
+def print_location_groups(location_groups: dict[str, set[str]]) -> None:
+    for group_name in sorted(location_groups.keys()):
+        print(f"[{group_name}]")
+
+        locations = sorted(location_groups[group_name])
+        for location in locations:
+            print(f"  - {location}")
+
+        print()
+
+# print_location_groups(keywe_location_groups)
+
+
 
