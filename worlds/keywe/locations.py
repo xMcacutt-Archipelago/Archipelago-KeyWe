@@ -130,7 +130,7 @@ def generate_location_groups() -> dict[str, set[str]]:
 
     # Per-level groups
     for loc_name, loc_data in location_table.items():
-        add_group(loc_data.region).add(loc_name)
+        add_group(f"Level {loc_data.region}").add(loc_name)
 
     # Per-week groups
     for week, levels_in_week in week_to_levels.items():
@@ -160,7 +160,7 @@ def generate_location_groups() -> dict[str, set[str]]:
     tournament_all = add_group("Tournament")
 
     for level in tournament_levels:
-        level_group = add_group(level)
+        level_group = add_group(f"Tournament {level}")
 
         for loc_name, loc_data in location_table.items():
             if loc_data.region == level:

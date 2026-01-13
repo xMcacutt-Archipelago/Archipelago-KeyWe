@@ -26,23 +26,27 @@ def create_regions(world: KeyWeWorld):
         create_region(world, week)
         for level, data in levels_dict.items():
             create_region(world, level)
-    for season, levels_dict in overtime_levels.items():
-        create_region(world, season)
-        for level, data in levels_dict.items():
+    if world.options.include_overtime:
+        for season, levels_dict in overtime_levels.items():
+            create_region(world, season)
+            for level, data in levels_dict.items():
+                create_region(world, level)
+    if world.options.include_tournament:
+        create_region(world, TPT)
+        for level in tournament_levels:
             create_region(world, level)
-    create_region(world, TPT)
-    for level in tournament_levels:
-        create_region(world, level)
 
 def connect_all_regions(world: KeyWeWorld):
     for week, level_dict in levels.items():
         connect_regions(world,"Menu", week, f"Menu -> {week}")
         for level, data in level_dict.items():
             connect_regions(world, week, level, f"{week} -> {level}")
-    for season, level_dict in overtime_levels.items():
-        connect_regions(world, "Menu", season, f"Menu -> {season}")
-        for level, data in level_dict.items():
-            connect_regions(world, season, level, f"{season} -> {level}")
-    connect_regions(world, "Menu", TPT, f"Menu -> {TPT}")
-    for level in tournament_levels:
-        connect_regions(world, TPT, level, f"{TPT} -> {level}")
+    if world.options.include_overtime:
+        for season, level_dict in overtime_levels.items():
+            connect_regions(world, "Menu", season, f"Menu -> {season}")
+            for level, data in level_dict.items():
+                connect_regions(world, season, level, f"{season} -> {level}")
+    if world.options.include_tournament:
+        connect_regions(world, "Menu", TPT, f"Menu -> {TPT}")
+        for level in tournament_levels:
+            connect_regions(world, TPT, level, f"{TPT} -> {level}")

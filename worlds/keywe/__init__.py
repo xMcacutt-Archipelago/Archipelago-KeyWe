@@ -4,7 +4,7 @@ from BaseClasses import Item, MultiWorld, Tutorial, ItemClassification, Region, 
 from Options import OptionError, PerGameCommonOptions
 from worlds.AutoWorld import WebWorld, World
 
-from .items import KeyWeItem, keywe_item_table, create_items, ItemData, keywe_item_groups
+from .items import *
 from .locations import KeyWeLocation, generate_location_table, location_table, create_locations, LocType, \
     keywe_location_groups
 from .options import KeyWeOptions, keywe_options
@@ -54,11 +54,11 @@ class KeyWeWorld(World):
 
 
     def fill_slot_data(self) -> id:
-        from Utils import visualize_regions
-        state = self.multiworld.get_all_state(False)
-        state.update_reachable_regions(self.player)
-        visualize_regions(self.get_region("Menu"), f"{self.player_name}_world.puml",
-                          show_entrance_names=True, regions_to_highlight=state.reachable_regions[self.player])
+        # from Utils import visualize_regions
+        # state = self.multiworld.get_all_state(False)
+        # state.update_reachable_regions(self.player)
+        # visualize_regions(self.get_region("Menu"), f"{self.player_name}_world.puml",
+        #                   show_entrance_names=True, regions_to_highlight=state.reachable_regions[self.player])
         return {
             "ModVersion": "1.0.4",
             "TournamentIncluded": self.options.include_tournament.value,
@@ -73,6 +73,10 @@ class KeyWeWorld(World):
             "LevelCompletionCheckThreshold": self.options.level_completion_check_threshold.value,
             "DeathLink": self.options.death_link.value
         }
+
+
+    def get_filler_item_name(self) -> str:
+        return get_junk_item_names(self.random, 1, junk_weights)[0]
 
 
     def generate_early(self) -> None:

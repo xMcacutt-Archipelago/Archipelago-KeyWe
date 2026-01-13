@@ -55,23 +55,30 @@ def set_rules(world: KeyWeWorld):
         rule = lambda state, week=week_name: state.has(f"{week} Unlock", world.player)
         world.get_entrance(f"Menu -> {week_name}").access_rule = rule
 
-    rule = lambda state: state.has(f"{OT_SUMMER} Unlock", world.player)
-    world.get_entrance(f"Menu -> {OT_SUMMER}").access_rule = rule
-    rule = lambda state: state.has(f"{OT_FALL} Unlock", world.player)
-    world.get_entrance(f"Menu -> {OT_FALL}").access_rule = rule
-    rule = lambda state: state.has(f"{OT_WINTER} Unlock", world.player)
-    world.get_entrance(f"Menu -> {OT_WINTER}").access_rule = rule
+    if world.options.include_overtime:
+        rule = lambda state: state.has(f"{OT_SUMMER} Unlock", world.player)
+        world.get_entrance(f"Menu -> {OT_SUMMER}").access_rule = rule
+        rule = lambda state: state.has(f"{OT_FALL} Unlock", world.player)
+        world.get_entrance(f"Menu -> {OT_FALL}").access_rule = rule
+        rule = lambda state: state.has(f"{OT_WINTER} Unlock", world.player)
+        world.get_entrance(f"Menu -> {OT_WINTER}").access_rule = rule
 
-    rule = lambda state: state.has(f"{TPT} Unlock", world.player)
-    world.get_entrance(f"Menu -> {TPT}").access_rule = rule
+    if world.options.include_tournament:
+        rule = lambda state: state.has(f"{TPT} Unlock", world.player)
+        world.get_entrance(f"Menu -> {TPT}").access_rule = rule
 
     goal_dict = {}
     goal_dict["Level Complete"] = world.options.required_level_completions.value
     for week_name in levels.keys():
-        goal_dict[f"{week_name} Level Complete"] = world.options.required_level_completions_per_week.value
+        key = f"{week_name} Level Complete"
+        goal_dict[key] = world.options.required_level_completions_per_week.value
+        if week_name == "Winter - Week 3":
+            goal_dict[key] = min(goal_dict[key], 3)
     goal_dict["Collectible Collected"] = world.options.required_collectible_checks.value
-    goal_dict["Overtime Level Complete"] = world.options.required_overtime_completions
-    goal_dict["Tournament Level Complete"] = world.options.required_tournament_completions
+    if world.options.include_overtime:
+        goal_dict["Overtime Level Complete"] = world.options.required_overtime_completions
+    if world.options.include_tournament:
+        goal_dict["Tournament Level Complete"] = world.options.required_tournament_completions
 
     world.get_entrance(f"{WINTER_WEEK_3} -> {WINTER_LVL_12}").access_rule = \
         lambda state: (state.has_all_counts(goal_dict, world.player) and

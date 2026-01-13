@@ -41,7 +41,7 @@ class RequiredCollectibleChecks(Range):
     """
     display_name = "Required Collectible Checks"
     range_start = 0
-    range_end = 15
+    range_end = 14
     default = 0
 
 
