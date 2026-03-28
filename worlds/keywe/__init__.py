@@ -43,7 +43,7 @@ class KeyWeWorld(World):
     location_name_groups = keywe_location_groups
     trap_weights = {}
     web = KeyWeWeb()
-    # ut_can_gen_without_yaml = True
+    ut_can_gen_without_yaml = True
 
 
     def __init__(self, multiworld: MultiWorld, player: int):
@@ -81,7 +81,7 @@ class KeyWeWorld(World):
 
     def generate_early(self) -> None:
         # UT Stuff Here
-        #self.handle_ut_yamless(None)
+        self.handle_ut_yamless(None)
         if not self.options.include_overtime.value and self.options.required_overtime_completions.value > 0:
             print("[KeyWe] Overtime completions required was set without overtime included. Setting requirements to 0.")
             self.options.required_overtime_completions.value = 0
@@ -132,19 +132,26 @@ class KeyWeWorld(World):
         hint_data[self.player] = new_hint_data
 
 
-    # def handle_ut_yamless(self, slot_data: Optional[Dict[str, Any]]) -> Optional[Dict[str, Any]]:
-    #
-    #     if not slot_data \
-    #             and hasattr(self.multiworld, "re_gen_passthrough") \
-    #             and isinstance(self.multiworld.re_gen_passthrough, dict) \
-    #             and self.game in self.multiworld.re_gen_passthrough:
-    #         slot_data = self.multiworld.re_gen_passthrough[self.game]
-    #
-    #     if not slot_data:
-    #         return None
-    #
-    #     # fill in options
-    #     self.options.goal.value = slot_data["Goal"]
-    #     self.options.progressive_elementals.value = slot_data["ProgressiveElementals"]
-    #
-    #     return slot_data
+    def handle_ut_yamless(self, slot_data: Optional[Dict[str, Any]]) -> Optional[Dict[str, Any]]:
+        if not slot_data \
+                and hasattr(self.multiworld, "re_gen_passthrough") \
+                and isinstance(self.multiworld.re_gen_passthrough, dict) \
+                and self.game in self.multiworld.re_gen_passthrough:
+            slot_data = self.multiworld.re_gen_passthrough[self.game]
+
+        if not slot_data:
+            return None
+
+        # fill in options
+        self.options.include_tournament.value = slot_data["TournamentIncluded"]
+        self.options.include_overtime.value = slot_data["OvertimeIncluded"]
+        self.options.required_level_completions.value = slot_data["RequiredLevelCompletions"]
+        self.options.required_level_completions_per_week.value = slot_data["RequiredLevelCompletionsPerWeek"]
+        self.options.required_collectibles.value = slot_data["RequiredCollectibles"]
+        self.options.required_collectible_checks.value = slot_data["RequiredCollectibleChecks"]
+        self.options.required_overtime_completions.value = slot_data["RequiredOvertimeCompletions"]
+        self.options.required_tournament_completions.value = slot_data["RequiredTournamentCompletions"]
+        self.options.starting_week.value = slot_data["StartingWeek"]
+        self.options.level_completion_check_threshold.value = slot_data["LevelCompletionCheckThreshold"]
+
+        return slot_data
