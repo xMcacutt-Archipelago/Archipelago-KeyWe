@@ -182,11 +182,11 @@ keywe_item_groups = {
 junk_weights = {
     "Random Facewear": 14,
     "Random Hat": 22,
-    "Random Skin": 23,
-    "Random Backwear": 11,
+    "Random Skin": 25,
+    "Random Backwear": 13,
     "Random Hairstyle": 5,
-    "Random Footwear": 3,
-    "Random Arms" : 0,
+    "Random Footwear": 11,
+    "Random Arms" : 1,
 }
 
 junk_weight_additions_tournament = {

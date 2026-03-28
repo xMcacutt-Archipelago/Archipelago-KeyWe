@@ -118,12 +118,12 @@ levels = {
     },
     SUMMER_WEEK_2: {
         SUMMER_LVL_5: KeyWeLevelData(LTR, 3, has_challenge=True, collectible=EMPTY_CHRYSALIS),
-        SUMMER_LVL_6: KeyWeLevelData(MSG, 3, collectible=TEMPERED_LENS),
-        SUMMER_LVL_7: KeyWeLevelData(PKG, 3),
+        SUMMER_LVL_6: KeyWeLevelData(MSG, 3, has_challenge=True, collectible=TEMPERED_LENS),
+        SUMMER_LVL_7: KeyWeLevelData(PKG, 3, has_challenge=True),
         SUMMER_LVL_8: KeyWeLevelData(SRT, 3),
     },
     SUMMER_WEEK_3: {
-        SUMMER_LVL_9: KeyWeLevelData(LTR, 3),
+        SUMMER_LVL_9: KeyWeLevelData(LTR, 3, has_challenge=True),
         SUMMER_LVL_10: KeyWeLevelData(PKG, 3, has_challenge=True, collectible=WAYFARERS_COMPASS),
         SUMMER_LVL_11: KeyWeLevelData(SRT, 3),
         SUMMER_LVL_12: KeyWeLevelData(MSG, 3, collectible=PRICKLY_SEED_POD),
@@ -132,13 +132,13 @@ levels = {
         FALL_LVL_1: KeyWeLevelData(PKG, 4, collectible=ANCIENT_TOOTH),
         FALL_LVL_2: KeyWeLevelData(LTR, 4),
         FALL_LVL_3: KeyWeLevelData(MSG, 4),
-        FALL_LVL_4: KeyWeLevelData(SRT, 3),
+        FALL_LVL_4: KeyWeLevelData(SRT, 3, has_challenge=True),
     },
     FALL_WEEK_2:{
         FALL_LVL_5: KeyWeLevelData(LTR, 4, collectible=COSMIC_FRIENDSHIP_ROCK),
         FALL_LVL_6: KeyWeLevelData(MSG, 4, collectible=CHARGED_FEATHER),
-        FALL_LVL_7: KeyWeLevelData(SRT, 3, collectible=SALTY_SCALE),
-        FALL_LVL_8: KeyWeLevelData(PKG, 4),
+        FALL_LVL_7: KeyWeLevelData(SRT, 3, has_challenge=True, collectible=SALTY_SCALE),
+        FALL_LVL_8: KeyWeLevelData(PKG, 4, has_challenge=True),
     },
     FALL_WEEK_3: {
         FALL_LVL_9: KeyWeLevelData(MSG, 3, has_challenge=True),
@@ -153,13 +153,13 @@ levels = {
         WINTER_LVL_4: KeyWeLevelData(MSG, 4),
     },
     WINTER_WEEK_2: {
-        WINTER_LVL_5: KeyWeLevelData(LTR, 4),
-        WINTER_LVL_6: KeyWeLevelData(PKG, 4),
+        WINTER_LVL_5: KeyWeLevelData(LTR, 4, has_challenge=True),
+        WINTER_LVL_6: KeyWeLevelData(PKG, 4, has_challenge=True),
         WINTER_LVL_7: KeyWeLevelData(MSG, 4, has_challenge=True, collectible=PAPA_MOON_FIGURINE),
         WINTER_LVL_8: KeyWeLevelData(SRT, 3),
     },
     WINTER_WEEK_3: {
-        WINTER_LVL_9: KeyWeLevelData(MSG, 4),
+        WINTER_LVL_9: KeyWeLevelData(MSG, 4, has_challenge=True),
         WINTER_LVL_10: KeyWeLevelData(LTR, 4, has_challenge=True, collectible=MOUNTAINEERS_PITON),
         WINTER_LVL_11: KeyWeLevelData(PKG, 6),
         WINTER_LVL_12: KeyWeLevelData(SRT, 1, collectible=LOST_LETTER),
@@ -173,13 +173,13 @@ overtime_levels = {
         SUMMER_OT_3: KeyWeOvertimeLevelData(has_challenge=True),
     },
     OT_FALL: {
-        FALL_OT_1: KeyWeOvertimeLevelData(),
-        FALL_OT_2: KeyWeOvertimeLevelData(),
+        FALL_OT_1: KeyWeOvertimeLevelData(has_challenge=True),
+        FALL_OT_2: KeyWeOvertimeLevelData(has_challenge=True),
         FALL_OT_3: KeyWeOvertimeLevelData(has_challenge=True),
     },
     OT_WINTER: {
         WINTER_OT_1: KeyWeOvertimeLevelData(has_challenge=True),
-        WINTER_OT_2: KeyWeOvertimeLevelData(),
+        WINTER_OT_2: KeyWeOvertimeLevelData(has_challenge=True),
         WINTER_OT_3: KeyWeOvertimeLevelData(),
     },
 }

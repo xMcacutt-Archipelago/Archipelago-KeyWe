@@ -60,7 +60,7 @@ class KeyWeWorld(World):
         # visualize_regions(self.get_region("Menu"), f"{self.player_name}_world.puml",
         #                   show_entrance_names=True, regions_to_highlight=state.reachable_regions[self.player])
         return {
-            "ModVersion": "1.0.4",
+            "ModVersion": "1.1.0",
             "TournamentIncluded": self.options.include_tournament.value,
             "OvertimeIncluded": self.options.include_overtime.value,
             "RequiredLevelCompletions": self.options.required_level_completions.value,
