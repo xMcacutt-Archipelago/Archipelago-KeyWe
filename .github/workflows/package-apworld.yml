@@ -10,6 +10,6 @@ jobs:
   release:
     uses: Eijebong/ap-actions/.github/workflows/release-apworld.yml@main
     with:
-      apworld-path: worlds/ty_the_tasmanian_tiger
+      apworld-path: worlds/keywe
       ap-version: '0.6.5'
       python-version: '3.12'
